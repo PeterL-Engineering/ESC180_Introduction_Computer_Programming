@@ -33,13 +33,33 @@ def star_can_be_taken(activity):
 
     
 def perform_activity(activity, duration):
-    pass
+    
+    global cur_hedons
+    global cur_health
+    
+    global last_activity
+    global last_activity_duration
+
+    global cur_time
+    
+    if activity == "resting":
+       last_activity = activity
+       last_activity_duration = duration
+       cur_time = cur_time + duration
+
+    elif activity == "running":
+        last_activity = activity
+        last_activity_duration = duration
+        cur_time = cur_time + duration
+        cur_health = cur_health + duration * 3
+
+        
 
 def get_cur_hedons():
-    pass
+    return cur_hedons
     
 def get_cur_health():
-    pass
+    return cur_health
     
 def offer_star(activity):
     pass
@@ -72,6 +92,7 @@ def estimate_health_delta(activity, duration):
         
 if __name__ == '__main__':
     initialize()
+    perform_activity("resting", 20)
     perform_activity("running", 30)    
     print(get_cur_hedons())            # -20 = 10 * 2 + 20 * (-2)             # Test 1
     print(get_cur_health())            # 90 = 30 * 3                          # Test 2           		
