@@ -47,11 +47,21 @@ def perform_activity(activity, duration):
        last_activity_duration = duration
        cur_time = cur_time + duration
 
-    elif activity == "running":
+    elif activity == "running" and last_activity == "resting":
         last_activity = activity
         last_activity_duration = duration
         cur_time = cur_time + duration
-        cur_health = cur_health + duration * 3
+        
+        if duration <= 180:
+            cur_health = cur_health + duration * 3
+        else: 
+            cur_health = cur_health + 540 + duration - 180
+
+        if duration <= 10:
+            cur_hedons = cur_hedons + duration * 3
+        else:
+            cur_hedons = cur_hedons + 20 - (duration - 10) * -2
+
 
         
 
