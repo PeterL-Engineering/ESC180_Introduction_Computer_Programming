@@ -25,45 +25,37 @@ def initialize():
     
     last_finished = -1000
     
-
-            
-
 def star_can_be_taken(activity):
     pass
 
-    
+def get_hedons_per_min(activity):
+    if activity == "running" and  (cur_time - last_finished >= 120):
+        hedons_per_min = 2
+    elif activity == "textbooks" and  (cur_time - last_finished >= 120):
+        hedons_per_min = 1
+    elif activity == "running" or "textbooks" and  (cur_time - last_finished < 120):
+        hedons_per_min = -2
+    else:
+        hedons_per_min = 0
+    return hedons_per_min
+
+def get_health_per_min(activity, duration):
+    pass
+
 def perform_activity(activity, duration):
-    
     global cur_hedons
     global cur_health
-    
     global last_activity
     global last_activity_duration
-
     global cur_time
-    
-    if activity == "resting":
-       last_activity = activity
-       last_activity_duration = duration
-       cur_time = cur_time + duration
 
-    elif activity == "running" and last_activity == "resting":
-        last_activity = activity
-        last_activity_duration = duration
-        cur_time = cur_time + duration
-        
-        if duration <= 180:
-            cur_health = cur_health + duration * 3
-        else: 
-            cur_health = cur_health + 540 + duration - 180
+    cur_time = cur_time + duration
 
-        if duration <= 10:
-            cur_hedons = cur_hedons + duration * 3
-        else:
-            cur_hedons = cur_hedons + 20 - (duration - 10) * -2
+    hedons_per_min = get_hedons_per_min(activity)
 
 
-        
+
+
 
 def get_cur_hedons():
     return cur_hedons
@@ -94,7 +86,6 @@ def estimate_hedons_delta(activity, duration):
     activity for duration minutes'''
     pass
             
-
 def estimate_health_delta(activity, duration):
     pass
         
@@ -120,5 +111,26 @@ if __name__ == '__main__':
     perform_activity("running", 170)
     print(get_cur_health())            # 700 = 210 + 160 * 3 + 10 * 1         # Test 9
     print(get_cur_hedons())            # -430 = -90 + 170 * (-2)              # Test 10
-    
-    
+'''Putting this here for now cause I think there's a better way to do it
+
+     if activity == "resting":
+       last_activity = activity
+       last_activity_duration = duration
+       cur_time = cur_time + duration
+
+    elif activity == "running":
+        last_activity = activity
+        last_activity_duration = duration
+        cur_time = cur_time + duration
+        hedons_per_min = get_hedons_per_min(activity=)
+        
+        if duration <= 180:
+            cur_health = cur_health + duration * 3
+        else: 
+            cur_health = cur_health + 540 + duration - 180
+
+        if duration <= 10:
+            cur_hedons = cur_hedons + duration * 3
+        else:
+            cur_hedons = cur_hedons + 20 - (duration - 10) * -2  
+''' 
