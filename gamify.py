@@ -31,7 +31,7 @@ def initialize():
 def star_can_be_taken(activity):
     global bored_with_stars
     
-    if cur_star / cur_time > 1.5:
+    if cur_star / cur_time > 1.5: #still confused about how the star was offered for activity "activity"
         bored_with_stars = True
         return False
     else:
@@ -62,7 +62,7 @@ def perform_activity(activity, duration):
     if activity == "resting":
        last_activity = activity
        last_activity_duration = duration
-       cur_time = cur_time + duration
+       cur_time += duration
 
     elif activity == "running":
         last_activity = activity
@@ -71,38 +71,38 @@ def perform_activity(activity, duration):
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
             if duration <= 10:
-                cur_hedons = cur_hedons + duration * hedons_per_min
-                cur_health = cur_health + duration * 3
-                cur_time = cur_time + duration
+                cur_hedons += duration * hedons_per_min #hedons_per_min for running = 2
+                cur_health += duration * 3
+                cur_time += duration
                 last_non_rest = cur_time
             elif duration <= 180:
-                cur_hedons = cur_hedons + (hedons_per_min * 10) + (duration - 10) * -2
-                cur_health = cur_health + duration * 3
-                cur_time = cur_time + duration
+                cur_hedons += (hedons_per_min * 10) + (duration - 10) * -2 #hedons_per_min * 10 represents if duration <= 10, add to duration - 10 because if less than 10 is different than less than 180
+                cur_health += duration * 3 
+                cur_time += duration
                 last_non_rest = cur_time
             else:
-                cur_hedons = cur_hedons + (hedons_per_min * 10) - (duration - 10) * -2
-                cur_health = cur_health + 540 + (duration - 180)
-                cur_time = cur_time + duration
+                cur_hedons += (hedons_per_min * 10) - (duration - 10) * -2 #same as above because same limitations on hedons
+                cur_health += 540 + (duration - 180) # 3 * 180 =540 for the health points above, get 1 health point for every minute after 180
+                cur_time += duration
                 last_non_rest = cur_time
-        else:
+        else: #cur_star_activity == "running"
             if duration <= 10:
-                cur_hedons = cur_hedons + duration * 5 #5 since star
-                cur_health = cur_health + duration * 3
-                cur_time = cur_time + duration
+                cur_hedons += duration * 5 #3 hedons/min with star, 2 hedons/min regular
+                cur_health += duration * 3
+                cur_time += duration
                 last_non_rest = cur_time
             elif duration <= 180:
-                cur_hedons = cur_hedons + 50 + (duration - 10) * -2 #50 because 5 x 10 for initial star hedons
-                cur_health = cur_health + duration * 3
-                cur_time = cur_time + duration
+                cur_hedons += 50 + (duration - 10) * -2 #50 because 5 x 10 for initial star hedons
+                cur_health += duration * 3
+                cur_time += duration
                 last_non_rest = cur_time
             else:
-                cur_hedons = cur_hedons + 50 - (duration - 10) * -2
-                cur_health = cur_health + 540 + (duration - 180)
-                cur_time = cur_time + duration
+                cur_hedons += 50 - (duration - 10) * -2
+                cur_health += 540 + (duration - 180)
+                cur_time += duration
                 last_non_rest = cur_time           
                 
-    else:
+    else: #now on final activity for the function perform activity. textbooks
         last_activity = activity
         last_activity_duration = duration
 
@@ -110,27 +110,27 @@ def perform_activity(activity, duration):
 
         if cur_star_activity != "textbooks":
             if duration <= 20:
-                cur_hedons = cur_hedons + duration * hedons_per_min
-                cur_health = cur_health + duration * 2
-                cur_time = cur_time + duration
+                cur_hedons += duration * hedons_per_min
+                cur_health += duration * 2
+                cur_time += duration
                 last_non_rest = cur_time
             else:
-                cur_hedons = cur_hedons + (hedons_per_min * 20) + (duration - 20) * -1
-                cur_time = cur_time + duration
+                cur_hedons += (hedons_per_min * 20) + (duration - 20) * -1 #hedons_per_min * 20 for above
+                cur_time += duration
                 last_non_rest = cur_time
-        else:
+        else: #cur_star_activity = "textbooks"
             if duration <= 10: 
-                cur_hedons = cur_hedons + duration * 3
-                cur_health = cur_health + duration * 2
-                cur_time = cur_time + duration
+                cur_hedons += duration * 3
+                cur_health += duration * 2
+                cur_time += duration
                 last_non_rest = cur_time        
             if duration <= 20:
-                cur_hedons = cur_hedons + 30 (duration - 10) * hedons_per_min
-                cur_health = cur_health + duration * 2
-                cur_time = cur_time + duration
+                cur_hedons += 30 + (duration - 10) * hedons_per_min #30 + duration bc of stars 
+                cur_health += duration * 2
+                cur_time += duration
                 last_non_rest = cur_time
             else:
-                cur_hedons = cur_hedons + 30 + hedons_per_min * 10 + (duration - 20) * -1
+                cur_hedons += 30 + hedons_per_min * 10 + (duration - 20) * -1
                 cur_time = cur_time + duration
                 last_non_rest = cur_time    
         
@@ -152,7 +152,7 @@ def offer_star(activity):
         return print("User is bored with stars!")
    
 def most_fun_activity_minute():
-    if last_activity == "resting":
+    if last_activity == "resting": #wait can we not do running right after textbooks 
         return "running"
     elif cur_star_activity == "running":
         return "running"
