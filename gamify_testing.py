@@ -117,6 +117,8 @@ def perform_activity(activity, duration):
                 cur_time += duration
                 last_non_rest = cur_time
 
+        last_activity_duration += duration #How to set this back to zero
+
     else: #now on final activity for the function perform activity. textbooks
 
         hedons_per_min = get_hedons_per_min(activity)
@@ -153,12 +155,9 @@ def perform_activity(activity, duration):
                 cur_health += duration * 2
                 cur_time = cur_time + duration
                 last_non_rest = cur_time
-    if last_activity == activity:
-        last_activity_duration += duration
-    else:
-        last_activity_duration = duration
-    
+
     last_activity = activity
+    last_activity_duration = duration
     cur_star_activity = None
 
 def get_cur_hedons():
