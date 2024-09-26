@@ -76,6 +76,9 @@ def perform_activity(activity, duration):
 
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
+            #if (last_activity == "running") or (last_activity == "textbooks") and ((cur_time - last_activity_duration) + duration > 180):
+                #cur_hedons += duration * -2
+                #cur_health += (180 - last_activity_duration) * 3 + (duration - (180 - last_activity_duration))
             if (cur_time - last_non_rest < 120) and ((last_activity == "running") or (last_activity == "textbooks")):
                 cur_hedons += duration * -2
                 cur_health += duration * 3
