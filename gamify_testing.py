@@ -32,10 +32,12 @@ def star_can_be_taken(activity):
     global cur_star
     global cur_time
 
-    if cur_star / cur_time > 1.5: #still confused about how the star was offered for activity "activity"
+    if cur_time != 0 and cur_star / cur_time > 1.5: #still confused about how the star was offered for activity "activity"
         bored_with_stars = True
         cur_star = 0
         return True
+    elif cur_time == 0:
+        cur_star = 0
     else:
         cur_star += 1
         return False
@@ -65,21 +67,39 @@ def perform_activity(activity, duration):
     elif activity == "running":
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
-            if duration <= 10:
-                cur_hedons += duration * hedons_per_min
-                cur_health += duration * 3
-                cur_time += duration
-                last_non_rest = cur_time
-            elif duration <= 180:
-                cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
-                cur_health += duration * 3
-                cur_time += duration
-                last_non_rest = cur_time
-            else:
-                cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
-                cur_health += 540 + (duration - 180)
-                cur_time += duration
-                last_non_rest = cur_time
+            if last_activity != "running":
+                if duration <= 10:
+                    cur_hedons += duration * hedons_per_min
+                    cur_health += duration * 3
+                    cur_time += duration
+                    last_non_rest = cur_time
+                elif duration <= 180:
+                    cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
+                    cur_health += duration * 3
+                    cur_time += duration
+                    last_non_rest = cur_time
+                else:
+                    cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
+                    cur_health += 540 + (duration - 180)
+                    cur_time += duration
+                    last_non_rest = cur_time
+            elif last_activity_duration < 180:
+                if duration <= 10:
+                    cur_hedons += duration * hedons_per_min
+                    cur_health += (180 - last_activity_duration) * 3
+                    cur_time += duration
+                    last_non_rest = cur_time
+                elif duration <= 180:
+                    cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
+                    cur_health += (180 - last_activity_duration) * 3 + (180 - duration)
+                    cur_time += duration
+                    last_non_rest = cur_time
+                else:
+                    cur_hedons += duration
+                    cur_health += 540 + (duration - 180)
+                    cur_time += duration
+                    last_non_rest = cur_time
+
         else: #cur_star_activity == "running"
             if duration <= 10:
                 cur_hedons += duration * (hedons_per_min + 3) 
@@ -133,9 +153,12 @@ def perform_activity(activity, duration):
                 cur_health += duration * 2
                 cur_time = cur_time + duration
                 last_non_rest = cur_time
-
+    if last_activity == activity:
+        last_activity_duration += duration
+    else:
+        last_activity_duration = duration
+    
     last_activity = activity
-    last_activity_duration = duration
     cur_star_activity = None
 
 def get_cur_hedons():
@@ -168,6 +191,7 @@ def most_fun_activity_minute():
 
 if __name__ == '__main__':
     initialize()
+    offer_star("running")
     perform_activity("resting", 20)
     perform_activity("running", 30)
     get_cur_hedons()            # -20 = 10 * 2 + 20 * (-2)             # Test 1
