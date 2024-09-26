@@ -31,8 +31,8 @@ def tell_n_times2(message, N):
 
 def fact(n):
     res = 1
-    for i in range(2, n+1)
-    res *= i
+    for i in range(2, n+1):
+        res *= i
 if __name__=='main__':
     #print_n_times(1000, "authority")
  

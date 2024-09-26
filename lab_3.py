@@ -36,27 +36,33 @@ def initialize():
     last_coffee_time2 = -100
 
 def drink_coffee():
+    global last_coffee_time2
+    global last_coffee_time
+    global too_much_coffee
+
     if current_time - last_coffee_time < 120:
-       too_much_coffee == True
-    elif last_coffee_time != -100
+      too_much_coffee == True
+    elif last_coffee_time != -100:
+      last_coffee_time2 = current_time
+    else:
+       last_coffee_time = current_time
+      
 
 def study(minutes):
+  global knols
+  global current_time
 
-    global knols
-    global current_time
-
-    if too_much_coffee == True:
-       current_time = current_time + minutes
-       return knols
-    else:
-       if current_time - last_coffee_time == 0:
-          current_time = current_time + minutes
-          knols = knols + minutes * 10
-          return knols
-       else:
-            current_time = current_time + minutes
-            knols = knols + minutes * 5
-            return knols
+  if too_much_coffee == True:
+    current_time = current_time + minutes
+    return knols
+  elif too_much_coffee == False and current_time - last_coffee_time == 0:
+      current_time = current_time + minutes
+      knols = knols + minutes * 10
+      return knols
+  else:
+    current_time = current_time + minutes
+    knols = knols + minutes * 5
+    return knols
 
 if __name__ == '__main__':
     initialize() # start the simulation

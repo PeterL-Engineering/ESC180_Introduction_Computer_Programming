@@ -9,7 +9,6 @@ def initialize():
 
     global last_non_rest
     global bored_with_stars
-    global starships
     global cur_star
     global cur_star_activity
 
@@ -28,22 +27,17 @@ def initialize():
 
     last_non_rest = -1000
 
-    starships = 0
-
 def star_can_be_taken(activity):
     global bored_with_stars
     global cur_star
     global cur_time
-    global starships
 
     if cur_star / cur_time > 1.5: #still confused about how the star was offered for activity "activity"
         bored_with_stars = True
         cur_star = 0
-        starships = 0
         return False
     else:
         cur_star += 1
-        starships += 1
         return True
 
 def get_hedons_per_min(activity):
@@ -76,10 +70,10 @@ def perform_activity(activity, duration):
 
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
-            #if (last_activity == "running") or (last_activity == "textbooks") and ((cur_time - last_activity_duration) + duration > 180):
-                #cur_hedons += duration * -2
-                #cur_health += (180 - last_activity_duration) * 3 + (duration - (180 - last_activity_duration))
-            if (cur_time - last_non_rest < 120) and ((last_activity == "running") or (last_activity == "textbooks")):
+            if (last_activity == "running") and ((cur_time - last_activity_duration) + duration > 180):
+                cur_hedons += duration * -2
+                cur_health += (180 - last_activity_duration) * 3 + (duration - (180 - last_activity_duration))
+            elif (cur_time - last_non_rest < 120) and ((last_activity == "running") or (last_activity == "textbooks")):
                 cur_hedons += duration * -2
                 cur_health += duration * 3
                 cur_time += duration
@@ -122,11 +116,9 @@ def perform_activity(activity, duration):
         hedons_per_min = get_hedons_per_min(activity)
 
         if cur_star_activity != "textbooks":
-            if (last_non_rest - duration < 120) and ((last_activity == "running" or last_activity == "textbooks")):
+            if (last_activity == "textbooks") and ((cur_time - last_activity_duration) + duration > 180):
                 cur_hedons += duration * -2
-                cur_health += duration * 2
-                cur_time += duration
-                last_non_rest = cur_time
+                cur_health += (180 - last_activity_duration) * 3 + (duration - (180 - last_activity_duration))
             elif duration <= 20:
                 cur_hedons += duration * hedons_per_min
                 cur_health += duration * 2
@@ -167,12 +159,13 @@ def get_cur_health():
 def offer_star(activity):
     global cur_star_activity
     global bored_with_stars
-    global starships
 
     star_can_be_taken(activity)
 
-    if starships > 0:
+    if cur_star > 0 and last_activity == activity:
         cur_star_activity = activity
+    elif cur_star > 0 and last_activity != activity:
+        cur_star_activity = None
     else:
         return print("User is bored with stars!")
 
