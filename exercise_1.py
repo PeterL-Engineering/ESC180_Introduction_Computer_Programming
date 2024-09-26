@@ -19,3 +19,12 @@ def sleep_in(weekday, vacation):
     return True
   else:
     return False
+  
+def set_square(x):
+   global ret_square
+
+   ret_square = x * x
+   
+
+if __name__ == '__main__':
+   ret_square = 0
