@@ -114,8 +114,8 @@ def perform_activity(activity, duration):
                 cur_health += duration * 2
                 cur_time += duration
                 last_non_rest = cur_time
-            else: #did we account for for the fact that both running and carrying textbooks give -2 hedons per minute if user is tired and not using star
-                cur_hedons += (hedons_per_min * 20) + (duration - 20) * -1 #hedons_per_min * 20 for above
+            else:
+                cur_hedons += 20 + (duration - 20) * -1 #hedons_per_min * 20 for above
                 cur_health += 40 + (duration - 20) * 2
                 cur_time += duration
                 last_non_rest = cur_time
@@ -188,24 +188,21 @@ if __name__ == '__main__':
     initialize()
     perform_activity("resting", 20)
     perform_activity("running", 30)    
-    print(get_cur_hedons())            # -20 = 10 * 2 + 20 * (-2)             # Test 1 same
-    print(get_cur_health())            # 90 = 30 * 3                          # Test 2 same      		
-    print(most_fun_activity_minute())  # resting                              # Test 3 same
+    print(get_cur_hedons())            # -20 = 10 * 2 + 20 * (-2)             # Test 1
+    print(get_cur_health())            # 90 = 30 * 3                          # Test 2           		
+    print(most_fun_activity_minute())  # resting                              # Test 3
     perform_activity("resting", 30)    
-    offer_star("running")                                                      #get bored w star so I think issue w stars if i understand what stars are
-    print(most_fun_activity_minute())  # running                              # Test 4 same
+    offer_star("running")              
+    print(most_fun_activity_minute())  # running                              # Test 4
     perform_activity("textbooks", 30)  
-    print(get_cur_health())            # 150 = 90 + 30*2                      # Test 5 same
-    print(get_cur_hedons())            # -80 = -20 + 30 * (-2)                # Test 6 we get -10, i think issue w giving -2 hedons/min if user is tired
-    offer_star("running")                                                       #stars issue??
+    print(get_cur_health())            # 150 = 90 + 30*2                      # Test 5
+    print(get_cur_hedons())            # -80 = -20 + 30 * (-2)                # Test 6
+    offer_star("running")
     perform_activity("running", 20)
-    print(get_cur_health())            # 210 = 150 + 20 * 3                   # Test 7 
+    print(get_cur_health())            # 210 = 150 + 20 * 3                   # Test 7
     print(get_cur_hedons())            # -90 = -80 + 10 * (3-2) + 10 * (-2)   # Test 8
     perform_activity("running", 170)
-    print(get_cur_health())            # 700 = 210 + 160 * 3 + 10 * 1         # Test 9 since no break between running for 20 minutes and running for 170 minutes, technically ran for a total of 180 mins so have to make code so it knows that i think
-    print(get_cur_hedons())            # -430 = -90 + 170 * (-2)              # Test 10 hedons tired not taken into account
+    print(get_cur_health())            # 700 = 210 + 160 * 3 + 10 * 1         # Test 9
+    print(get_cur_hedons())            # -430 = -90 + 170 * (-2)              # Test 10
 
 #how will stars affect get_hedons_per_min and most_fun_activity
-
-
-
