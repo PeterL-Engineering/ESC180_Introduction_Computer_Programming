@@ -24,7 +24,6 @@ def initialize():
     last_activity_duration = 0
 
     cur_time = 0
-
     last_non_rest = -1000
 
 def star_can_be_taken(activity):
@@ -63,102 +62,78 @@ def perform_activity(activity, duration):
     global last_non_rest
 
     if activity == "resting":
-       cur_time += duration
+        cur_time = cur_time
     elif activity == "running":
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
             if last_activity != "running":
                 if duration <= 10:
                     cur_hedons += duration * hedons_per_min
-                    cur_health += duration * 3
-                    cur_time += duration
-                    last_non_rest = cur_time
+                    cur_health += duration * 3 
                 elif duration <= 180:
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
-                    cur_health += duration * 3
-                    cur_time += duration
-                    last_non_rest = cur_time
+                    cur_health += duration * 3 
                 else:
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
-                    cur_health += 540 + (duration - 180)
-                    cur_time += duration
-                    last_non_rest = cur_time
+                    cur_health += 540 + (duration - 180)   
+            
             elif last_activity_duration < 180:
                 if duration <= 10:
                     cur_hedons += duration * hedons_per_min
-                    cur_health += (180 - last_activity_duration) * 3
-                    cur_time += duration
-                    last_non_rest = cur_time
+                    cur_health += (180 - last_activity_duration) * 3   
                 elif duration <= 180:
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
-                    cur_health += (180 - last_activity_duration) * 3 + (180 - duration)
-                    cur_time += duration
-                    last_non_rest = cur_time
+                    cur_health += (180 - last_activity_duration) * 3 + (180 - duration) 
                 else:
                     cur_hedons += duration
                     cur_health += 540 + (duration - 180)
-                    cur_time += duration
-                    last_non_rest = cur_time
 
         else: #cur_star_activity == "running"
             if duration <= 10:
                 cur_hedons += duration * (hedons_per_min + 3) 
                 cur_health += duration * 3
-                cur_time += duration
-                last_non_rest = cur_time
             elif duration <= 180:
                 cur_hedons += 10 * (hedons_per_min + 3) + (duration - 10) * -2 
                 cur_health += duration * 3
-                cur_time += duration
-                last_non_rest = cur_time
             else:
                 cur_hedons += 10 * (hedons_per_min + 3) + (duration - 10) * -2 
-                cur_health += 540 + (duration - 180)
-                cur_time += duration
-                last_non_rest = cur_time
-
-        last_activity_duration += duration #How to set this back to zero
+                cur_health += 540 + (duration - 180)    
+        last_non_rest = cur_time
 
     else: #now on final activity for the function perform activity. textbooks
-
         hedons_per_min = get_hedons_per_min(activity)
-
         if cur_star_activity != "textbooks":
             if duration <= 20:
                 cur_hedons += duration * hedons_per_min
-                cur_health += duration * 2
-                cur_time += duration
-                last_non_rest = cur_time
+                cur_health += duration * 2   
             elif last_activity == "running" or "textbooks" and cur_time - last_non_rest > 120:
                 cur_hedons +=  20 * hedons_per_min + (duration - 20) * -1 #hedons per min is either -1 or -2
-                cur_health += duration * 2
-                cur_time = cur_time + duration
-                last_non_rest = cur_time
+                cur_health += duration * 2   
             else:
                 cur_hedons +=  20 * hedons_per_min + (duration - 20) * -2 #hedons per min is either -1 or -2
                 cur_health += duration * 2
-                cur_time = cur_time + duration
-                last_non_rest = cur_time
+            
         else: #cur_star_activity = "textbooks"
             if duration <= 20:
                 cur_hedons += duration * (hedons_per_min + 3) 
-                cur_health += duration * 2
-                cur_time += duration
-                last_non_rest = cur_time
+                cur_health += duration * 2   
             elif last_activity == "running" or "textbooks" and cur_time - last_non_rest > 120:
                 cur_hedons +=  20 * (hedons_per_min + 3) + (duration - 20) * -1 #hedons per min is either -1 or -2
-                cur_health += duration * 2
-                cur_time = cur_time + duration
-                last_non_rest = cur_time
+                cur_health += duration * 2   
             else:
                 cur_hedons +=  20 * (hedons_per_min + 3) + (duration - 20) * -2
                 cur_health += duration * 2
-                cur_time = cur_time + duration
-                last_non_rest = cur_time
+                
+        last_non_rest = cur_time
+
+    if last_activity == activity:
+        last_activity_duration += duration
+    else:
+        last_activity_duration = duration
 
     last_activity = activity
-    last_activity_duration = duration
     cur_star_activity = None
+    cur_time += duration
 
 def get_cur_hedons():
     return cur_hedons
@@ -178,7 +153,7 @@ def offer_star(activity):
         cur_star_activity = None
 
 def most_fun_activity_minute():
-    if last_activity == "resting": #wait can we not do running right after textbooks
+    if last_activity == "resting":
         return "running"
     elif cur_star_activity == "running":
         return "running"
@@ -186,7 +161,6 @@ def most_fun_activity_minute():
         return "textbooks"
     else:
         return "resting"
-
 
 if __name__ == '__main__':
     initialize()
