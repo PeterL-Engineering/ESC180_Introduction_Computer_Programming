@@ -1,6 +1,5 @@
-def initialize():
-    '''Initializes the global variables needed for the simulation.
-    Note: this function is incomplete, and you may want to modify it'''
+def initialize(): 
+    '''Initializes the global variables needed for the simulation.'''
 
     global cur_hedons, cur_health
 
@@ -27,35 +26,40 @@ def initialize():
     last_non_rest = -1000
 
 def star_can_be_taken(activity):
-    '''Determine whether the user is bored with stars'''
+    '''Determine whether the user is bored with stars
+    activity (str): activity user is participating in'''
     global bored_with_stars
     global cur_star
     global cur_time
 
-    if cur_time != 0 and cur_star / cur_time > 1.5: #still confused about how the star was offered for activity "activity"
+    if cur_time != 0 and cur_star / cur_time > 1.5:  #Return True when user is offered more than 3 stars in 2 hours
         bored_with_stars = True
         cur_star = 0
         return True
     elif cur_time == 0:
         cur_star = 0
-    else:
+    else: #Return False and increase value of cur_star by 1
         cur_star += 1
         return False
 
 def get_hedons_per_min(activity):
-    '''Determine the number of hedons activity activity will earn per min'''
+    '''Determine the number of hedons activity activity will earn per min, integer values
+    activity (str): activity user is participating in'''
 
-    if activity == "running" and  (cur_time - last_non_rest >= 120):
+    if activity == "running" and  (cur_time - last_non_rest >= 120): #Return hedons_per_min for running
         hedons_per_min = 2
-    elif activity == "textbooks" and  (cur_time - last_non_rest >= 120):
+    elif activity == "textbooks" and  (cur_time - last_non_rest >= 120): #Return hedons_per_min for textbooks
         hedons_per_min = 1
-    else:
-        hedons_per_min = -2
+    else: #Return hedons_per_min when last_activty is textbooks or running and finishing last_activity is less than activity
+        hedons_per_min = -2 
     return hedons_per_min
 
 def perform_activity(activity, duration):
-    ''' Return the hedons and health earned for activity activity.
-    Keep track of the curren time and last activity duration'''
+    ''' Return the hedons and health earned for activity activity for given duration
+    Keep track of the current time and last activity duration
+    
+    activity (str): activity user is participating in
+    duration(int): amount of time user does activity'''
 
     global cur_hedons
     global cur_health
@@ -69,6 +73,7 @@ def perform_activity(activity, duration):
 
     if activity == "resting":
         cur_time = cur_time
+    
     elif activity == "running":
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "running":
@@ -76,10 +81,10 @@ def perform_activity(activity, duration):
                 if duration <= 10:
                     cur_hedons += duration * hedons_per_min
                     cur_health += duration * 3 
-                elif duration <= 180:
+                elif duration <= 180: #Add cur_hedons for duration <= 10
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
                     cur_health += duration * 3 
-                else:
+                else: #180 > duration
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
                     cur_health += 540 + (duration - 180)   
             
@@ -90,7 +95,7 @@ def perform_activity(activity, duration):
                 elif duration <= 180:
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
                     cur_health += (180 - last_activity_duration) * 3 + (180 - duration) 
-                else:
+                else: 
                     cur_hedons += duration
                     cur_health += 540 + (duration - 180)
 
@@ -101,21 +106,21 @@ def perform_activity(activity, duration):
             elif duration <= 180:
                 cur_hedons += 10 * (hedons_per_min + 3) + (duration - 10) * -2 
                 cur_health += duration * 3
-            else:
+            else: #duration > 180
                 cur_hedons += 10 * (hedons_per_min + 3) + (duration - 10) * -2 
                 cur_health += 540 + (duration - 180)    
         last_non_rest = cur_time
 
-    else: #now on final activity for the function perform activity. textbooks
+    else: #Activity is textbooks
         hedons_per_min = get_hedons_per_min(activity)
         if cur_star_activity != "textbooks":
             if duration <= 20:
                 cur_hedons += duration * hedons_per_min
                 cur_health += duration * 2   
-            elif last_activity == "running" or "textbooks" and cur_time - last_non_rest > 120:
+            elif (last_activity == "running" or "textbooks") and (cur_time - last_non_rest > 120):
                 cur_hedons +=  20 * hedons_per_min + (duration - 20) * -1 #hedons per min is either -1 or -2
                 cur_health += duration * 2   
-            else:
+            else: #duration
                 cur_hedons +=  20 * hedons_per_min + (duration - 20) * -2 #hedons per min is either -1 or -2
                 cur_health += duration * 2
             
@@ -123,7 +128,7 @@ def perform_activity(activity, duration):
             if duration <= 20:
                 cur_hedons += duration * (hedons_per_min + 3) 
                 cur_health += duration * 2   
-            elif last_activity == "running" or "textbooks" and cur_time - last_non_rest > 120:
+            elif (last_activity == "running" or "textbooks") and (cur_time - last_non_rest > 120):
                 cur_hedons +=  20 * (hedons_per_min + 3) + (duration - 20) * -1 #hedons per min is either -1 or -2
                 cur_health += duration * 2   
             else:
@@ -150,7 +155,8 @@ def get_cur_health():
     return cur_health
 
 def offer_star(activity):
-    '''Determine whether to give the user a star for activity activity'''
+    '''Determine whether to give the user a star for activity activity
+    activity (str): activity user is participating in'''
     global cur_star_activity
     global bored_with_stars
 
