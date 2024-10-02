@@ -35,12 +35,12 @@ def star_can_be_taken(activity):
     if cur_time != 0 and cur_star / cur_time > 1.5:  #Return True when user is offered more than 3 stars in 2 hours
         bored_with_stars = True
         cur_star = 0
-        return True
+        return False
     elif cur_time == 0:
         cur_star = 0
     else: #Return False and increase value of cur_star by 1
         cur_star += 1
-        return False
+        return True
 
 def get_hedons_per_min(activity):
     '''Determine the number of hedons activity activity will earn per min, integer values
@@ -96,8 +96,11 @@ def perform_activity(activity, duration):
                     cur_hedons += 10 * hedons_per_min + (duration - 10) * -2
                     cur_health += (180 - last_activity_duration) * 3 + (180 - duration) 
                 else: 
-                    cur_hedons += duration
+                    cur_hedons += duration -2
                     cur_health += 540 + (duration - 180)
+            else: 
+                    cur_hedons += duration * -2
+                    cur_health += duration
 
         else: #cur_star_activity == "running"
             if duration <= 10:
