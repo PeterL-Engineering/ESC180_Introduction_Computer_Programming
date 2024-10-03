@@ -201,5 +201,5 @@ if __name__ == '__main__':
     get_cur_health()            # 210 = 150 + 20 * 3                   # Test 7
     get_cur_hedons()            # -90 = -80 + 10 * (3-2) + 10 * (-2)   # Test 8
     perform_activity("running", 170)
-    get_cur_health()            # 700 = 210 + 160 * 3 + 10 * 1         # Test 9
+    print(get_cur_health())          # 700 = 210 + 160 * 3 + 10 * 1         # Test 9
     get_cur_hedons()            # -430 = -90 + 170 * (-2)              # Test 10
