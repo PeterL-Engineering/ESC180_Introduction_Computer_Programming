@@ -173,6 +173,7 @@ def most_fun_activity_minute():
         return "resting"
 
 if __name__ == '__main__':
+'''
     initialize()
     offer_star("running")
     perform_activity("resting", 20)
@@ -193,3 +194,27 @@ if __name__ == '__main__':
     perform_activity("running", 170)
     get_cur_health()            # 700 = 210 + 160 * 3 + 10 * 1         # Test 9
     get_cur_hedons()            # -430 = -90 + 170 * (-2)              # Test 10
+'''
+
+    initialize()
+    print(get_cur_health())
+    print(get_cur_hedons())
+    perform_activity("running", 20)
+    print(get_cur_health())
+    print(get_cur_hedons())
+    perform_activity(“running”, 90)
+    print(get_cur_health())
+    print(get_cur_hedons())
+    offer_star(“running”)
+    perform_activity(“textbooks”, 100)
+    print(get_cur_health())
+    print(get_cur_hedons())
+    offer_star(“textbooks”)
+    perform_activity(“textbooks”, 20)
+    print(get_cur_health())
+    print(get_cur_hedons())
+    offer_star(“textbooks”)
+    print(star_can_be_taken(“textbooks”))
+    perform_activity(“textbooks”, 1)
+    print(get_cur_health())
+    print(get_cur_hedons())
