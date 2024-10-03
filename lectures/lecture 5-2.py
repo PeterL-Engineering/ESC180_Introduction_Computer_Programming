@@ -15,11 +15,11 @@ def is_perfect_square(n):
 def is_perfect_square2(n):
     return integer_square_root(n) != "ERROR"
 
-def is_perfect_square3(n):
+#def is_perfect_square3(n):
     #n**0.5
     #floor(25**0.5) = 5
     #floor(26**0.5) = 5
-    return math.floor(n**0.5)**2 == n
+    #return math.floor(n**0.5)**2 == n
 def n_perfect_sqaures(n):
 
     count = 0
