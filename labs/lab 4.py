@@ -73,8 +73,22 @@ def enter_names():
 #Question 6
 import math
 
-#def calculate_pi(n):
+def calculate_pi(n):
+    pi = (round(math.pi*(10**n)))
 
+    count = 0
+    estimate = 0
+
+    while round(4 *(estimate) * (10**n)) != pi:
+        estimate += ((-1)**count) / ((2 * count) + 1) 
+        count += 1
+
+    return count
+
+#Question 7
 
 if __name__ == '__main__':
-    print(round(math.pi*(10**5)))
+    #print(round(math.pi*(10**5)))
+    print(calculate_pi(2))
+    print(gcd1(1, 2))
+    print(gcd2())
