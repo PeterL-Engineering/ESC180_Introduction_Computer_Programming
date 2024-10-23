@@ -122,7 +122,7 @@ first_half('abcdef') → 'abc'
 '''
 
 def first_half(str):
-  return str[:len(str)/2]
+  return str[:(len(str))//2]
 
 '''
 Given a string, return a version without the first and last char, so "Hello" yields "ell". The string length will be at least 2.
