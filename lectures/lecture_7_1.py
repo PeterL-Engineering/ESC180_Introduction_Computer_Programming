@@ -30,10 +30,10 @@ for i in range(25):
     line ="" * i + f"for char{i} i alphabet:\n"
     code += line
 
-line = " " * i
+line = " " * (i + 1)
 line += "print("
 for i in range(25):
-    line += print(f"char{i}" + )
-line += "'')"
+    line += f"char{i} + "
+line += "'')\n"
 
 code += line
