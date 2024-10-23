@@ -1,3 +1,5 @@
+#Question 5 From Midterm 2022
+
 def haul_kid_house(hh, house, kid):
     '''Return the number of items kid kid collected 
     in house house'''
@@ -38,3 +40,47 @@ def luckiest_kid(hh):
             cur_max_items = num_items
             cur_luckiest_kid = kid
     return cur_luckiest_kid
+
+#Mutability
+
+'''
+Lists and dictionaries are mutable, but tuples, ints and strs are not
+
+Keys for dictionaries must be immutable
+'''
+
+#Sparse Matrices
+
+'''
+Values can be stored in a dictionary to limit the number of zeros eg.
+'''
+
+M = [[0, 5, 0], 
+        [0, 0, 7]]
+
+M_sparse = {(0, 1): 5, (1, 2): 7}
+
+def zero_mat(dim):
+    '''Return a matrix of size dim (dim is a tuple in the
+    format (n rows, n cols) in a list of lists format,
+    containing all zeros)'''
+
+    # a list with n row elements
+    #each elements is [0, ..., 0]
+
+    res = []
+    n_rows = dim[0]
+    n_cols = dim[1]
+    for i in range(n_rows):
+        res.append([0] * n_cols)
+    return res
+
+def add_sparse_matrices(A, B, dim):
+    z = zero_mat(dim)
+    #A + B = 0 + A + B
+    for coord, val in A.items():
+        z[coord[0][1]] += val
+    for coord, val in B.items():
+        z[coord[0][1]] += val
+    
+    return z
