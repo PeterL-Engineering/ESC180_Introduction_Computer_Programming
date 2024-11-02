@@ -69,9 +69,3 @@ def artsie_math():
         return LHS_operand - RHS_operand
     else:
         print("ERROR: Artsies can't do complicated math")
-
-artsie_math()
-
-
-
-

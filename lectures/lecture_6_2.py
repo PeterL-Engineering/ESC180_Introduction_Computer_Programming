@@ -1,5 +1,5 @@
 #Hopfield nets 0-----0
-                  #2.1 0 would minimize the weight (if negative put 1)
+    #2.1 0 would minimize the weight (if negative put 1)
 
 
 #Print all combinations of numbers 0-2 and 0-3 and letters E,n,g
