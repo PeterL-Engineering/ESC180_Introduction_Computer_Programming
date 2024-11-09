@@ -27,6 +27,7 @@ def odd_number_counter():
 #Solution
 
 def n_of_odd_numbers():
+   total_odds = 0
    for num in L:
       if num % 2 == 1:
          total_odds += 1

@@ -1,5 +1,6 @@
 '''
-Given a string and a non-negative int n, return a larger string that is n copies of the original string.
+Given a string and a non-negative int n, return a larger string that 
+is n copies of the original string.
 
 string_times('Hi', 2) → 'HiHi'
 string_times('Hi', 3) → 'HiHiHi'
@@ -10,7 +11,9 @@ def string_times(str, n):
   return str * n
 
 '''
-Given a string and a non-negative int n, we'll say that the front of the string is the first 3 chars, or whatever is there if the string is less than length 3. Return n copies of the front;
+Given a string and a non-negative int n, we'll say that the front of the string 
+is the first 3 chars, or whatever is there if the string is less than length 3. 
+Return n copies of the front;
 
 front_times('Chocolate', 2) → 'ChoCho'
 front_times('Chocolate', 3) → 'ChoChoCho'
@@ -21,7 +24,8 @@ def front_times(str, n):
   return str[:3] * n
 
 '''
-Given a string, return a new string made of every other char starting with the first, so "Hello" yields "Hlo".
+Given a string, return a new string made of every other char starting 
+with the first, so "Hello" yields "Hlo".
 
 string_bits('Hello') → 'Hlo'
 string_bits('Hi') → 'H'
@@ -61,7 +65,8 @@ def array_count9(nums):
   return count
 
 '''
-Given an array of ints, return True if one of the first 4 elements in the array is a 9. The array length may be less than 4.
+Given an array of ints, return True if one of the first 4 elements in the array is a 9. 
+The array length may be less than 4.
 
 array_front9([1, 2, 9, 3, 4]) → True
 array_front9([1, 2, 3, 4, 9]) → False
@@ -76,7 +81,8 @@ def array_front9(nums):
   return False
 
 '''
-Given an array of ints, return True if the sequence of numbers 1, 2, 3 appears in the array somewhere.
+Given an array of ints, return True if the sequence of numbers 1, 2, 3 
+appears in the array somewhere.
 
 array123([1, 1, 2, 3, 1]) → True
 array123([1, 1, 2, 4, 1]) → False
@@ -100,7 +106,9 @@ def array123(nums):
   return False
 
 '''
-Given 2 strings, a and b, return the number of the positions where they contain the same length 2 substring. So "xxcaazz" and "xxbaaz" yields 3, since the "xx", "aa", and "az" substrings appear in the same place in both strings.
+Given 2 strings, a and b, return the number of the positions where they contain 
+the same length 2 substring. So "xxcaazz" and "xxbaaz" yields 3, since the "xx", 
+"aa", and "az" substrings appear in the same place in both strings.
 
 string_match('xxcaazz', 'xxbaaz') → 3
 string_match('abc', 'abc') → 2
@@ -125,7 +133,8 @@ def first_half(str):
   return str[:(len(str))//2]
 
 '''
-Given a string, return a version without the first and last char, so "Hello" yields "ell". The string length will be at least 2.
+Given a string, return a version without the first and last char, 
+so "Hello" yields "ell". The string length will be at least 2.
 
 without_end('Hello') → 'ell'
 without_end('java') → 'av'
@@ -136,7 +145,9 @@ def without_end(str):
   return str[1:-1]
 
 '''
-Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length 0).
+Given 2 strings, a and b, return a string of the form short+long+short, 
+with the shorter string on the outside and the longer string on the inside. 
+The strings will not be the same length, but they may be empty (length 0).
 
 combo_string('Hello', 'hi') → 'hiHellohi'
 combo_string('hi', 'Hello') → 'hiHellohi'
@@ -150,7 +161,8 @@ def combo_string(a, b):
     return a + b + a
 
 '''
-Given a string, return a "rotated left 2" version where the first 2 chars are moved to the end. The string length will be at least 2.
+Given a string, return a "rotated left 2" version where the first 2 chars are moved to the end. 
+The string length will be at least 2.
 
 left2('Hello') → 'lloHe'
 left2('java') → 'vaja'
@@ -161,7 +173,8 @@ def left2(str):
   return str[2::] + str[:2]
 
 '''
-Given a non-negative number "num", return True if num is within 2 of a multiple of 10. Note: (a % b) is the remainder of dividing a by b, so (7 % 5) is 2. See also: Introduction to Mod
+Given a non-negative number "num", return True if num is within 2 of a multiple of 10. 
+Note: (a % b) is the remainder of dividing a by b, so (7 % 5) is 2. See also: Introduction to Mod
 
 near_ten(12) → True
 near_ten(17) → False
@@ -175,7 +188,8 @@ def near_ten(num):
     return False
 
 '''
-Return the number of times that the string "code" appears anywhere in the given string, except we'll accept any letter for the 'd', so "cope" and "cooe" count.
+Return the number of times that the string "code" appears anywhere in the given string, 
+except we'll accept any letter for the 'd', so "cope" and "cooe" count.
 
 count_code('aaacodebbb') → 1
 count_code('codexxcode') → 2
@@ -190,7 +204,9 @@ def count_code(str):
     return count
 
 '''
-Given two strings, return True if either of the strings appears at the very end of the other string, ignoring upper/lower case differences (in other words, the computation should not be "case sensitive"). Note: s.lower() returns the lowercase version of a string.
+Given two strings, return True if either of the strings appears at the very end of the other string, 
+ignoring upper/lower case differences (in other words, the computation should not be "case sensitive"). 
+Note: s.lower() returns the lowercase version of a string.
 
 end_other('Hiabc', 'abc') → True
 end_other('AbC', 'HiaBc') → True
@@ -204,7 +220,10 @@ def end_other(a, b):
   return a.endswith(b) or b.endswith(a)
 
 '''
-Return the "centered" average of an array of ints, which we'll say is the mean average of the values, except ignoring the largest and smallest values in the array. If there are multiple copies of the smallest value, ignore just one copy, and likewise for the largest value. Use int division to produce the final average. You may assume that the array is length 3 or more.
+Return the "centered" average of an array of ints, which we'll say is the mean average of the values, 
+except ignoring the largest and smallest values in the array. If there are multiple copies of the smallest value, 
+ignore just one copy, and likewise for the largest value. Use int division to produce the final average. 
+You may assume that the array is length 3 or more.
 
 centered_average([1, 2, 3, 4, 100]) → 3
 centered_average([1, 1, 5, 5, 10, 8, 7]) → 5

@@ -5,7 +5,7 @@ def is_prime(n):
         return True
     
     for m in range, (2, n):
-        # We want to check wheter  is divisible by m
+        # We want to check whether  is divisible by m
         #for m = 2, 3, 4, ... n-1
         if n % m == 0: # % not supported
             return False
