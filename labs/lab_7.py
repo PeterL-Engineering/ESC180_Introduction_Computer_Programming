@@ -124,18 +124,11 @@ def forward_step(M):
 
 # Question 7
 
-def backward_step(M):
+'''def backward_step(M):
     num_rows = len(M)
     num_cols = len(M[0])
 
     for i in range(num_rows - 1, 0, -1):
         for j in range(i, 0, -1):
             for k in range(len(M[0])):
-                M[j][k] = 
-        
-
-        
-
-
-
-
+              M[j][k] = '''

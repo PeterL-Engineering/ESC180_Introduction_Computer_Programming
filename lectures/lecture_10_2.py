@@ -31,11 +31,11 @@ def binary_search(L, e):
 
     # e is somewhere between L[low] and L[high]
 
-    while       :
+'''   while       :
         mid = (low + high) // 2
         if e < L[mid]:
             high = mid - 1
         elif e > L[mid]:
             low = mid + 1
         else:
-            return mid
+            return mid'''
