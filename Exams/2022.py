@@ -114,3 +114,33 @@ s1 = "HO HO HO"
 s2 = s1
 s1 = "Happy Holidays!"
 print(s2)
+
+'''
+Q. 8
+'''
+
+def longest_chain(friends):
+    for path_length in range(len(friends)):
+        paths = all_combinations(friends, path_length)
+        for path in paths:
+            if verify_friends(path, friends):
+                return path_length
+            
+    return 0
+
+def all_combinations(elems, n, start_list = []):
+    if n == 0:
+        return []
+    
+    all_combs = []
+
+    for i in range(len(elems)):
+        all_combs.extend(all_combinations(elems[:i] + elems[i+1:], n-1, start_list + elems[i]))
+    return all_combs
+
+def verify_friends(path, friends):
+    for i in range(len(path) - 1):
+        if path[i+1] not in friends[i]:
+            return False
+        
+    return True
