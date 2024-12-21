@@ -124,6 +124,31 @@ def log(b, n):
 # Runtime Complexity is O(logb(n))
 
 '''
+Q. 7
+'''
+def longest_chain(friends):
+    for path_length in range(len(friends)):
+        paths = all_combinations(list(friends.keys()), path_length)
+        for path in paths:
+            if verify_friends(path, friends):
+                return path_length
+    return 0
+
+def all_combinations(elems, n, start_list = []):
+    if n == 0:
+        return start_list
+    
+    all_combs = []
+    for i in range(len(elems)):
+        all_combs.extend(all_combinations(elems[:i] + elems[i+1:], n-1, start_list + elems[i]))
+
+def verify_friends(path, friends):
+    for i in range(len(path) - 1):
+        if path[i + 1] not in friends[i]:
+            return False
+    return True
+
+'''
 Q. 8 Write a function that takes in a list L of positive integers, and returns a list that consists of every second element of
 L, except that it skips every second even number encountered. You must use recursion. You must not use for-loops,
 while-loops, or list comprehensions (N.B.: if you don’t know what list comprehensions are, don’t worry about it: we

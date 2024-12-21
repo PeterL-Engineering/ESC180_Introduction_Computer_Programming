@@ -24,7 +24,7 @@ def binary_search(L, e):
 # to get the answer?
 
 # (high-low) is the size of the range of indices that we're looking at
-# (high-loew) decreases by at least a factor of 2 every iteration
+# (high-low) decreases by at least a factor of 2 every iteration
 
 # iteration 1: (high-low) ~ n
 # iteration 2: (high-low) <= n/2

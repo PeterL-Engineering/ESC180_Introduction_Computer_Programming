@@ -133,3 +133,36 @@ def merge(L1, L2):
         else:           
             return [L1[0]] + merge(L1[1:], L2)
         
+'''
+Q. 3 Again
+'''
+
+def movies_by_release_date(movies):
+
+    sortable_movies = []
+
+    for movie, release in movies.items():
+        if "a long time ago" in release:
+            sortable_movies.append((movie, -1))
+        else:
+            year = int(release.split(",")[0].strip())
+            sortable_movies.append((movie, year))
+
+    sorted_movies = sorted(sortable_movies, key = lambda x: (-x[1], x[0]))
+
+    return [x[0] for x in range(len(sorted_movies))]
+
+def movies_by_release_dates_again(movies):
+
+    sortable_movies = []
+
+    for movie, release in movies.items():
+        if "a long time ago" in release:
+            sortable_movies.append((movie, -1))
+        else:
+            year = int(release.split(",")[0].strip())
+            sortable_movies.append((movie, year))
+
+    sorted_movies = sorted(sortable_movies, key = lambda x: (-x[1], x[0]))
+
+    return [movie[0] for movie in range(len(sorted_movies))]
